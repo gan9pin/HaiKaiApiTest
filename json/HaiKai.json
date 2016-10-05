@@ -1,0 +1,283 @@
+
+ユーザ情報の作成 POST
+curl http://localhost:3000/api/v1/auth/signup
+パラメータ(body)
+name, os_type,uiid
+クエリ
+select=user or searcher
+レスポンス
+{
+  "uiid": "03df7bcc66d30d286359ef43947a8136",
+  "device_token": "03df7bcc66d30d286359ef43947a8136",
+  "message": "created user."
+}
+ユーザ情報の認証 POST
+curl http://localhost:3000/api/v1/auth/token
+パラメーター(body)
+uiid
+クエリ
+select=user or searcher
+レスポンス
+{
+  "device_token": "03df7bcc66d30d286359ef43947a8136",
+  "message": "signin successful."
+}
+ユーザ情報の取得 GET
+curl http://localhost:3000/api/v1/users/
+レスポンス
+[
+  {
+    "_id": "57c113c1de113f73a7000001",
+    "device_token": "03df7bcc66d30d286359ef43947a8136",
+    "uiid": "ipapsgpvapwsjdpfvojeipasdhfpivespid",
+    "os_type": "ios",
+    "__v": 0
+  },
+]
+ユーザ情報の取得 GET
+curl http://localhost:3000/api/v1/users/me
+レスポンス
+{
+  "_id": "57c113c1de113f73a7000001",
+  "device_token": "03df7bcc66d30d286359ef43947a8136",
+  "uiid": ":uiid",
+  "os_type": "ios",
+  "__v": 0
+}
+捜索者情報の取得 GET
+curl http://localhost:4567/getBookSeriesDetail
+レスポンス
+[
+  {
+    "_id": "57c113c1de113f73a7000001",
+    "device_token": "03df7bcc66d30d286359ef43947a8136",
+    "uiid": "ipapsgpvapwsjdpfvojeipasdhfpivespid",
+    "os_type": "ios",
+    "nickname": "太郎",
+    "__v": 0
+  },
+]
+捜索者情報の取得 GET
+curl http://localhost:3000/api/v1/searchers/me
+レスポンス
+{
+  "_id": "57c113c1de113f73a7000001",
+  "device_token": "03df7bcc66d30d286359ef43947a8136",
+  "uiid": ":uiid",
+  "os_type": "ios",
+  "nickname": "太郎",
+  "__v": 0
+}
+捜索者情報の変更 PUT
+curl http://localhost:3000/api/v1/searchers/me
+レスポンス
+{
+  "message": "updated",
+}
+依頼の作成
+curl http://localhost:3000/api/v1/entries POST
+パラメータ
+nickname,address latitude,longitude //Number
+レスポンス
+{
+  "message": "created"
+}
+依頼の取得
+curl http://localhost:3000/api/v1/entries GET
+レスポンス
+[
+  {
+    "entry_id": "8780sgdvawepfjp97293345rsgwr344t",
+    "nickname": "おばさん",
+    "searcher_list": [ //捜索者ユーザー一覧
+        "searcher_id",
+        "searcher_id",
+        "searcher_id"
+    ],
+    "status": "undiscovered,discovered", //未発見、発見済み
+    "timestamp": "2014-07-16T09:00:00+09:00（仮）" //日付
+  }
+]
+依頼の取得
+curl http://localhost:3000/api/v1/entries/:entry_id GET
+レスポンス
+{
+  "entry_id": "8780sgdvawepfjp97293345rsgwr344t",
+  "nickname": "おばさん",
+  "searcher_list": [ //捜索者ユーザー一覧
+    "searcher_id",
+    "searcher_id",
+    "searcher_id"
+  ],
+  "status": "undiscovered,discovered", //未発見、発見済み
+  "timestamp": "2014-07-16T09:00:00+09:00（仮）" //日付
+}
+依頼の更新
+curl http://localhost:3000/api/v1/entries/:entry_id PUT
+パラメータ
+nickname,address latitude, longitude //Number
+{
+  "message": "string"
+}
+依頼の発見
+curl http://localhost:3000/api/v1/entries/:entry_id/discovered PUT
+パラメータ
+longitude,latitude //Number
+レスポンス
+{
+  "status": "discovered",
+  "discovered_longitude": "13353463572", //Number
+  "discovered_latitude": "67222223562" //Number
+}
+依頼の削除
+レスポンス
+curl http://localhost:3000/api/v1/entries/:entry_id DELETE
+{
+  "message": "removed"
+}
+コメント作成
+curl http://localhost:3000/api/v1/entries/:entry_id/comments POST
+パラメータ
+comment, type(user or searcher)
+レスポンス
+{
+  "message": "created"
+}
+コメント取得
+curl http://localhost:3000/api/v1/entries/:entry_id/comments GET
+レスポンス
+[
+    {
+      "_id": "4745764urthrg32747thnwtnt",
+      "entry_id": "44eth23467uhj64w36uy666666634",
+      "comment": "",
+      "type": "",
+      "timestamp": "2014-07-16T09:00:00+09:00（仮）" //Number
+    }
+]
+コメント取得
+curl http://localhost:3000/api/v1/entries/:entry_id/comments/comment_id GET
+レスポンス
+{
+  "_id": "4745764urthrg32747thnwtnt",
+  "entry_id": "44eth23467uhj64w36uy666666634",
+  "comment": "",
+  "type": "",
+  "timestamp": "2014-07-16T09:00:00+09:00（仮）" //Number
+}
+コメント変更
+curl http://localhost:3000/api/v1/entries/:entry_id/comments/comment_id PUT
+パラメータ
+comment
+レスポンス
+{
+  "message": "updated"
+}
+コメント削除
+curl http://localhost:3000/api/v1/entries/:entry_id/comments/comment_id DELETE
+レスポンス
+{
+  "message": "removed"
+}
+依頼申請の作成 POST
+curl http://localhost:3000/api/v1/entries/:entry_id/requests POST
+パラメータ
+address longitude,latitude //Number
+レスポンス
+{
+  "message": "created",
+}
+依頼申請の取得 GET
+curl http://localhost:3000/api/v1/entries/:entry_id/requests GET
+レスポンス
+[
+  {
+    "_id": "weet563563ty3t576yuh62346",
+    "entry_id": "wrt38478ty840yyt80f2y30t",
+    "searcher_id": "8tyyy2348uyyyyyyyt04y",
+    "timestamp": "2014-07-16T09:00:00+09:00（仮）" //Number
+  }
+]
+依頼申請の取得 GET
+curl http://localhost:3000/api/v1/entries/:entry_id/requests/:request_id GET
+レスポンス
+{
+  "_id": "weet563563ty3t576yuh62346",
+  "entry_id": "wrt38478ty840yyt80f2y30t",
+  "searcher_id": "8tyyy2348uyyyyyyyt04y",
+  "timestamp": "2014-07-16T09:00:00+09:00（仮）" //Number
+}
+依頼申請の更新 PUT
+curl http://localhost:3000/api/v1/entries/:entry_id/requests/:request_id PUT
+パラメータ
+address longitude,latitude //Number
+レスポンス
+{
+  "message": "updated",
+}
+依頼申請の許可(user側) PUT
+curl http://localhost:3000/api/v1/entries/:entry_id/requests/:request_id/permission PUT
+パラメータ
+address longitude,latitude //Number
+レスポンス
+{
+  "status": "ok",
+}
+依頼申請の削除 DELETE
+curl http://localhost:3000/api/v1/entries/:entry_id/requests/request_id DELETE
+レスポンス
+{
+  "message": "removed",
+}
+依頼完了メッセージ POST
+curl http://localhost:3000/api/v1/entries/:entry_id/message POST
+パラメータ
+discription
+レスポンス
+{
+  "_id": "34t65gq35y764y643y4y56",
+  "entry_id": "2476yyyyyyyy4w5yyyyyy26u",
+  "discription": "徘徊者見つけました！",
+  "timstamp": 134134531 //Number
+}
+徘徊者作成 POST
+curl http://localhost:3000/api/v1/wanderers POST
+パラメータ
+icon,naem number //Number
+レスポンス
+{
+  "number": 87809, //Number
+  "message": "createrd"
+}
+徘徊者情報取得 GET
+curl http://localhost:3000/api/v1/wanderers GET
+レスポンス
+[
+  {
+    "_id": "24635757hw45yh6w4y6h64",,
+    "user_id": "24635757hw45yh6w4y6h64",,
+    "icon": "http://~",,
+    "number": 85858, //Nunber,
+    "name": "太郎"
+  }
+]
+徘徊者情報取得 GET
+curl http://localhost:3000/api/v1/wanderers/:number GET
+レスポンス
+{
+  "_id": "24635757hw45yh6w4y6h64",,
+  "user_id": "24635757hw45yh6w4y6h64",,
+  "icon": "http://~",,
+  "number": 85858, //Nunber,
+  "name": "太郎"
+}
+徘徊者情報変更 PUT
+curl http://localhost:3000/api/v1/wanderers/:number PUT
+パラメータ
+name,icon
+レスポンス
+{
+  "message": "updated",,
+}
+徘徊者情報削除 DELETE
+curl http://localhost:3000/api/v1/wanderers/:number
