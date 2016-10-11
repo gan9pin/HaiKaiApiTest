@@ -4,7 +4,7 @@ Dir[File.expand_path("../api/", __FILE__) << '/*.rb'].each do | file |
   require file
 end
 
-get '/api/v1/auth/signup' do
+post '/api/v1/auth/signup' do
   selection = params["select"]
   if selection == "user" then
     data = {
