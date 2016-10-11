@@ -3,7 +3,7 @@ class Status
         adjust_time_list = [60, 120, 180, 240]
         searcher = Searcher.new()
         time = Time.now() - adjust_time_list[count]
-        status_list = ["detectioned", "saved"]
+        status_list = ["detected", "saved"]
 
         @id = searcher.id
         @name = searcher.nickname
