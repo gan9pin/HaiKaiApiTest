@@ -205,7 +205,7 @@ curl http://localhost:3000/api/v1/entries/:entry_id/requests/:request_id GET
   "_id": "weet563563ty3t576yuh62346",
   "entry_id": "wrt38478ty840yyt80f2y30t",
   "searcher_id": "8tyyy2348uyyyyyyyt04y",
-  "timestamp": "2014-07-16T09:00:00+09:00（仮）" //Number
+  "timestamp": "2014-07-16 09:00:00" #Number
 }
 依頼申請の更新 PUT
 curl http://localhost:3000/api/v1/entries/:entry_id/requests/:request_id PUT

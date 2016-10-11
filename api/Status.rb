@@ -10,7 +10,7 @@ class Status
         @latitude = searcher.latitude
         @longitude = searcher.longitude
         @timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
-        @status = status_list[count % 2]
+        @status = status_list[rand(0..2)]
         @type = "searcher"
     end
 
