@@ -18,6 +18,10 @@ get '/api/v1/entries' do
     Entry.getEntries.to_json
 end
 
+get '/api/v1/entries/:entry_id' do
+    Entry.new().getHash().to_json
+end
+
 get '/api/v1/entries/:entry_id/comments' do
     Comment.getComments.to_json
 end
