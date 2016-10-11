@@ -5,20 +5,12 @@ Dir[File.expand_path("../api/", __FILE__) << '/*.rb'].each do | file |
 end
 
 post '/api/v1/auth/signup' do
-  selection = params["select"]
-  if selection == "user" then
-    data = {
-              "uiid": "03df7bcc66d30d286359ef43947a8136",
-              "device_token": "03df7bcc66d30d286359ef43947a8136",
-              "message": "created user."
-            }
-  elsif selection == "searcher"
-    data = {
-              "uiid": "03df7bcc66d30d286359ef43947a0000",
-              "device_token": "03df7bcc66d30d286359ef43947a8136",
-              "message": "created searcher."
-            }
-  end
+  data = {
+            "uiid": "03df7bcc66d30d286359ef43947a0000",
+            "device_token": "03df7bcc66d30d286359ef43947a8136",
+            "message": "created user."
+          }
+  return data
 end
 
 get '/api/v1/users' do
